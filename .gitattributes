@@ -18,4 +18,4 @@ LICENSE text eol=lf
 *.jpg binary
 *.png binary
 *.pbo binary
-PBOPREFIX$ text eol=lf
+$PBOPREFIX$ text eol=lf
