@@ -7,7 +7,8 @@ Not for live operations. Full README arrives with Phase 4 (see `docs/PLAN.md`).
 **Licence:** GPL-2.0-only (`LICENSE`); the bundled soldier addons are BSD-3-Clause. Credits: `CREDITS.md`.
 
 ## Requirements
-CBA_A3 and ACE3. **Temporary:** the Workshop mod DCO UnitScanner must also be loaded (the bundled soldier layer
+CBA_A3 and ACE3. Optional: GRAD Trenches, POOK Camonets, TerrainLib, IEDD. LAMBS Danger and VCOM AI are not
+supported alongside OPORD. **Temporary:** the Workshop mod DCO UnitScanner must also be loaded (the bundled soldier layer
 calls its functions; OPORD does not include it). Do not load the Workshop DCO Soldier FSM: OPORD bundles and
 replaces it. This requirement goes away when OPORD's own replacement lands (`docs/PLAN.md`).
 
