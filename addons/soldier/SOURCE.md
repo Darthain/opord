@@ -9,8 +9,9 @@ here carry "Copyright (C) 2026 OPORD contributors".
 | `addons/soldier` | `soldierFSM.pbo` | `soldierFSM` | 2025-02-01 |
 | `addons/soldier_module` | `fipo_module.pbo` | `fipo_module` | 2024-12-13 |
 
-Origin: Steam Workshop item 2825929474. The PBOs were unpacked unchanged (Mikero ExtractPbo) and imported in
-one commit before any edit. The internal PBO prefixes and the CfgPatches class names are kept, so every
+Origin: Steam Workshop item 2825929474. The PBOs were unpacked unchanged (Mikero ExtractPbo) and then edited. The
+repository history starts from the edited state (the unlicensed code removed below is not in any commit), so the
+unmodified source is only in the Workshop mod; every change is listed here. The internal PBO prefixes and the CfgPatches class names are kept, so every
 existing path resolves unchanged and OPORD replaces the Workshop mod. Do not load both.
 
 ## Credits

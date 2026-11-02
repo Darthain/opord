@@ -5,8 +5,9 @@ Open-source AI framework for Arma 3 milsim. It makes AI fight like trained soldi
 NR6 HAL (high command) and LAFS (fire and air support), with a maintained fork of the DCO Soldier FSM soldier
 brain bundled in.
 
-**Status: 0.1.0-alpha, foundation.** The bundled soldier layer and the defence work (battle positions, support by
-fire, statics, trenches, camo nets) are carried over and awaiting a parity test. Not for live operations. The
+**Status: alpha (0.1.0), foundation only, not yet tested in game.** The bundled soldier layer and the defence work
+(battle positions, support by fire, statics, trenches, camo nets) are carried over and build with HEMTT, but have
+not been run in Arma 3; the parity test is still to do. Not for live operations. The
 plan and stages are in [`docs/PLAN.md`](docs/PLAN.md).
 
 ## Requirements
