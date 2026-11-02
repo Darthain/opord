@@ -23,7 +23,7 @@ Layers, bottom to top:
 | Source | Use |
 | --- | --- |
 | ARTIC AI v0.6.8 (artic-ai repo) | Foundation, DCO adapter, defence, test menu: carried over in this session |
-| ARTIC AI v0.3.30.2 (archived) | Commander modules, ORBAT, objectives, platoon attack, contact sharing: ported in later stages |
+| ARTIC AI v0.3.30.2 (archived) | Commander modules, ORBAT, objectives, platoon attack, contact sharing: ported in later stages. Kept unchanged on the branch `legacy/artic-ai-v0.3` (tag `artic-ai-v0.3.30.2`); see "Port map" |
 | DCO Soldier FSM (Workshop 2825929474) | Soldier layer, forked (BSD-3) |
 | Squad FSM (github.com/Tally-1/Squad-FSM, BSD-3) | Parts for transport, reinforcements, artillery/AT requests, resupply: support stage |
 | Tally's Vehicle FSM | Behaviour reference only: no licence, no code may be used |
@@ -63,10 +63,103 @@ Phase 2 (soldier layer) and Phase 3 (foundation):
   no licence notice and never referenced; the module sliders use the vanilla `control = "Slider"`.
 - **Build compatibility edits** to the soldier source (semicolons, whitespace around string literals, a
   nameless config block commented out, `requiredVersion` 2.18): listed in `addons/soldier/SOURCE.md`.
+- **Legacy source kept, not built:** v0.3.30.2 lives on `legacy/artic-ai-v0.3`, never merged into `main`. In-combat
+  coordination is specified in `docs/specs/in-combat-coordination.md` (to be re-based before implementation).
 - **ARTIC AI renamed to OPORD** (`ARTIC_` -> `OPORD_`, "ARTIC AI" -> "OPORD"); every renamed public name is in
   `CHANGELOG.md`. The ARTIC checks that read `PR_HC1` / `PR_HeadlessClients` now use `OPORD_fnc_soldierHost`.
 - The ARTIC workarounds for the two DCO bugs are kept for parity (`OPORD_fnc_dcoGuard`, `OPORD_fnc_lockPosture`).
 - LAMBS Danger and VCOM AI remain unsupported alongside OPORD.
+
+## Port map (ARTIC AI v0.3.30.2 -> OPORD)
+The v0.3.30.2 source is kept unchanged on the branch `legacy/artic-ai-v0.3` (tag `artic-ai-v0.3.30.2`). It is
+never merged into `main` and never built. Later stages read it there and port it into OPORD's addons under OPORD
+names (`ARTIC_` -> `OPORD_`). Paths below are under `source/artic_ai_core/`; function names omit `fn_`.
+
+Rules for every port:
+- v0.6.8 code already carried over wins wherever the two overlap (see "Overlaps").
+- The v0.3 individual layer is dropped: the bundled soldier layer (DCO fork) handles individual behaviour. Code
+  that called it (listed under "Does not fit") must be re-based on the soldier adapter (`OPORD_fnc_unitFree`).
+- Each stage ends with checkpoint tests; the v0.3 benchmarks (`docs/BENCHMARKS.md` on the legacy branch) are
+  the starting point for them.
+
+| v0.3.30.2 area | Functions | OPORD addon | Stage | Notes |
+| --- | --- | --- | --- | --- |
+| `functions/core` | `getDoctrine`, `getTraining`, `initDoctrineLibrary` | `main` | 3 (used), 8 (full depth) | Doctrine and training profiles; the library is first read by the commander |
+| | `getSyncedByClass`, `sideFromIndex`, `clearGroupWaypoints`, `isCombatEffectiveTarget` | `main` | 3 | Shared helpers |
+| | `debug` | `main` | done | Overlap: `OPORD_fnc_log` is kept |
+| | `preInit`, `postInit` | the addon that owns each part | with each stage | Settings and event registration are split per addon, as in v0.6.8 |
+| `functions/capabilities` | `scanGroupCapabilities` | `main` | 3 | Group role scan used by ORBAT, sections and support |
+| | `applyRoleOverrides` | `commander` | 3 | Backs the Role Override module |
+| | `scanVehicleCapabilities` | `vehicles` | 6 | Artillery, ammo and fuel roles; also read by support (7) |
+| `functions/commander` | `commanderStep`, `serverManager`, `updateCommanderIntel`, `classifyBattlefields`, `assignObjective`, `evaluateObjective`, `refreshSiteControl`, `drawCommanderDebug` | `commander` | 3 | `updateCommanderIntel` is also the base of the information network (`intel`, 3) |
+| | `considerUAS` | `support` | 7 | Commander hook into drones |
+| `functions/modules` | `moduleCore`, `moduleCommander`, `moduleFormation`, `moduleAO`, `moduleFrontline`, `moduleObjective`, `moduleReserve`, `moduleSite`, `moduleRoleOverride` | `commander` | 3 | Eden/Zeus modules; `config.cpp` module classes go with them |
+| | `moduleSupport` | `support` | 7 | Sync support assets; registered by the commander (3) |
+| `functions/orbat` | `rebuildORBAT`, `getFormationGroups`, `buildFormationNode` | `commander` | 3 | ORBAT |
+| | `applyFormationProfile`, `assignFormationIntent` | `infantry` | 5 | |
+| | `assessBattlefield`, `buildBattleContext`, `getBattleEnvelope`, `findBattleControlPoint`, `battleSight`, `generateBattleCOAs`, `selectAttackScheme`, `planSectionRoute`, `platoonMovementStep`, `assessSectionContact`, `platoonContactResponse`, `findWithdrawalLanes` | `infantry` | 5 | Platoon attack, plan lifecycle, contact-aware replanning |
+| | `evaluateSbfFireLine`, `findSupportArc` | `infantry` | 5 | Support-by-fire for the attack (FIX section). Overlap with v0.6.8 SBF siting: v0.6.8 is kept for defence |
+| | `buildDefenceContext` | `defence` | 4 | Defence under the commander; overlap with `planLayout`, see "Overlaps" |
+| `functions/formation` | all 8 (`getFormationTemplate`, `selectFormation`, `assignFormationSlots`, `formationSlotWorld`, `fireteamSlotWorld`, `sectionFormationStep`, `setSectionDestination`, `assertMovementControl`) | `infantry` | 5 | Formations and drills; see `docs/reference/FORMATIONS.md` |
+| `functions/tactics` | `executePlatoonManoeuvre`, `executeFixingAction`, `executeBlockingAction`, `executeSuppressAndFlank`, `executeFightingWithdrawal`, `chooseFlankPlan`, `assignElements`, `assessAttackSupport`, `findSupportPosition`, `moveSectionTactical`, `moveFireteamTactical`, `suppressElement`, `finishPlan`, `endPlayQuietly`, `isPlayStale`, `isSectionPlayActive`, `markDeployProgress` | `infantry` | 5 | Section plays |
+| | `findCoverPosition`, `findThreatRelativeCover`, `coverScore`, `assessExposure`, `hasLineOfSight` | `infantry` | 5 | Section-level position choice only; individual cover is the soldier layer's |
+| | `executePrepareBattlePosition`, `executeDefendBattlePosition` | `defence` | 4 | Rewritten as the commander's order into `OPORD_fnc_prepareBattlePosition`; v0.6.8 builds the position |
+| `functions/combat` | `buildFireLine`, `assignFirePositions`, `sectionReactFire`, `fireHE` | `infantry` | 5 | Section fire control. Partial overlap with fighting positions (see "Overlaps") |
+| `functions/engineering` | `registerObstacle`, `createIED`, `detonateIED` | `defence` | 4 | Obstacle registry, IED (optional IEDD); no v0.6.8 equivalent. Minefields are new work in this stage |
+| | `chooseBattlePositionLayout`, `createConcealment`, `createFightingPosition`, `getCamoPattern` | none | n/a | Dropped: v0.6.8 is kept (see "Overlaps") |
+| `functions/planner` | `setGroupOrder`, `clearGroupOrder` | `commander` | 3 | Commander-to-group order interface |
+| | `localPlanner`, `groupStep` | `infantry` | 5 | Per-group executor; the individual parts of `groupStep` are re-based on the soldier adapter |
+| | `reportContact`, `findTarget` | `intel` | 3 | Contact reports; see `docs/specs/in-combat-coordination.md` |
+| | `getProfile` | `main` | 3 | Doctrine and training lookup |
+| `functions/individual` | `individualStep`, `processIndividualAI`, `setUnitTask`, `clearUnitTask` | none | n/a | **Dropped (DCO handles it)**: the individual layer |
+| | `getMovementProfile` | `infantry` | 5 | Terrain cohesion leash for formations, not individual behaviour |
+| | `initFireteams` | `infantry` | 5 | Stable fireteam membership |
+| | `isFit` | `main` | 5 | Fitness check (alive, not incapacitated or ACE-unconscious, on foot) |
+| `functions/fsm` + `fsm/*.fsm` | `startCommanderFSM`, `commanderFSMCondition`, `commanderFSMEnterState`, `ARTIC_Commander.fsm` | `commander` | 3 | |
+| | `registerFSMEvents` | `main` | 3 | Shared FSM event plumbing |
+| | `startPlatoonFSM`, `startPlatoonCBAStateMachine`, `platoonFSM*`, `platoonRuntime*`, `createPlatoonPlan`, `applyPlatoonPlan`, `getPlatoonPlan`, `getPlatoonLogicList`, `supersedePlatoonPlan`, `tryIssuePlatoonHHour`, `recordPlatoonFailure`, `classifyPlanFailure`, `findFormationNode`, `ARTIC_Platoon.fsm` | `infantry` | 5 | Plan lifecycle with H-hour |
+| | `startSectionFSM`, `sectionFSM*`, `abortSectionTask`, `setSectionTaskState`, `signalSectionFailure`, `signalSectionReady`, `startFireteamFSM`, `fireteamFSM*`, `fireteamTaskGet`, `makeFireteamTask`, `setFireteamTask`, `validateFireteamTask`, `getFireteamMembers`, `ARTIC_Section.fsm`, `ARTIC_Fireteam.fsm` | `infantry` | 5 | |
+| `functions/support` | `requestSupport`, `processSupportRequests`, `executeFireMission`, `localArtilleryFire`, `supportDiagnostic` | `support` | 7 | Fires; Squad FSM (BSD-3) has parts for artillery/AT requests |
+| `functions/uas` | `requestUAS`, `processUASRequests`, `findUASProvider`, `executeReconUAS`, `executeFPVStrike`, `consumeUASItem`, `getCrocusClass`, `scanUnitUASCapabilities` | `support` | 7 | Drones; the Crocus integration stays runtime-only |
+| | `reportUASContacts` | `intel` | 3 | Feeds the shared picture (hook into `support` at 7) |
+| `config.cpp` | module classes, faction category | the addon of each module | with each stage | `ARTIC_Module_*` -> `OPORD_Module_*` |
+| `docs/` (legacy branch) | doctrine references | `docs/reference/` | done | `ATP_3-21.8_NOTES`, `BATTLEBOOK_DRILLS`, `DOCTRINE_MATRIX`, `FORMATIONS` copied. Patch specs, changelogs and build notes stay on the legacy branch |
+
+### Overlaps between v0.3.30.2 and the carried-over v0.6.8 code
+v0.6.8 is kept in every case.
+1. **Battle position layout:** v0.3 `engineering/chooseBattlePositionLayout` (25 lines) against v0.6.8
+   `defence/planLayout` (+ `refinePos`, `safeSnap`, `orientAlong`). Dropped.
+2. **Battle position preparation:** v0.3 `tactics/executePrepareBattlePosition` and `executeDefendBattlePosition`
+   against v0.6.8 `defence/prepareBattlePosition` and `moduleBattlePosition`. v0.3 is only the order hook.
+3. **Fighting positions:** v0.3 `engineering/createFightingPosition` (a sandbag or GRAD object) against v0.6.8
+   `main/createFipo`, `defence/trenchFipo` (DCO fighting positions, plus the GRAD parapet logic). Dropped.
+4. **Concealment:** v0.3 `engineering/createConcealment` against v0.6.8 `defence/conceal`. Dropped.
+5. **Camouflage pattern:** v0.3 `engineering/getCamoPattern` against v0.6.8 `main/getCamoPattern` (same job,
+   same POOK variants). Dropped.
+6. **Defence context and SBF siting:** v0.3 `orbat/buildDefenceContext` (threat axis and frontage for DEFEND) and
+   `orbat/evaluateSbfFireLine`, `findSupportArc` against v0.6.8 `planLayout` (defence arc and the SBF line sited
+   for line of sight). Defence keeps v0.6.8; the SBF functions are ported only for the attack's FIX section.
+7. **Section fire positions:** v0.3 `combat/assignFirePositions`, `buildFireLine` pick positions for a section's
+   shooters, which partly overlaps fighting-position placement. They stay for contact lines and FIX; v0.6.8 and
+   the soldier layer's fighting positions own defence.
+8. **Debug and logging:** v0.3 `core/debug` against v0.6.8 `main/log`. Dropped.
+9. **Trenches:** v0.3 has only placement of single objects, no trench lines; v0.6.8 trench building has no
+   v0.3 counterpart.
+
+### Does not fit the map
+- **Callers of the dropped individual layer** must be re-based, not copied: `combat/buildFireLine`,
+  `sectionReactFire`, `formation/assertMovementControl`, `sectionFormationStep`, `setSectionDestination`,
+  `planner/groupStep`, `localPlanner`, `tactics/endPlayQuietly`, `executeBlockingAction`,
+  `executeFightingWithdrawal`, `executeFixingAction`, `executePlatoonManoeuvre`, `executeSuppressAndFlank`,
+  `finishPlan`, `moveFireteamTactical`, `moveSectionTactical`, `suppressElement`. They set unit tasks and read
+  `ARTIC_reactionState`; OPORD orders soldiers only through the soldier adapter.
+- **`docs/specs/in-combat-coordination.md`** reads ARTIC's individual reaction state for the section combat
+  state; the banner on that spec says to re-base it.
+- **Vehicles (stage 6)** are mostly new work: v0.3 has no vehicle tactics, only `scanVehicleCapabilities`.
+- **Information network (`intel`)** radio behaviour is new work: v0.3 has contact calls, the commander intel
+  loop and UAS contact reports only.
+- **Morale** is "reserved" in v0.3 and not implemented; it comes from the soldier layer.
+- **Doctrine and training** exist only as a profile library in v0.3 (`initDoctrineLibrary`); applying them is stage 8.
 
 ## Stage order
 Each stage ends with checkpoint tests in the test menu.

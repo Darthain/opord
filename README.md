@@ -50,7 +50,8 @@ To compare OPORD with the ARTIC AI v0.6.8 baseline follow [`docs/PARITY_TEST.md`
 - `addons/soldier`, `addons/soldier_module`: the bundled soldier layer (BSD-3-Clause)
 - `addons/defence`, `addons/test`: defence work and the test menu
 - `tools/check_headers.py`: licence header check
-- `docs/PLAN.md`, `docs/PARITY_TEST.md`; `CREDITS.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `CLAUDE.md`
+- Branch `legacy/artic-ai-v0.3`: the ARTIC AI v0.3.30.2 source, unchanged, for reading and porting only (never merged or built)
+- `docs/PLAN.md` (includes the port map), `docs/PARITY_TEST.md`, `docs/specs/`, `docs/reference/` (doctrine notes); `CREDITS.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `CLAUDE.md`
 
 ## Credits and licence
 OPORD's own code is **GPL-2.0-only** (`LICENSE`), Copyright (C) 2026 OPORD contributors. The soldier addons are a

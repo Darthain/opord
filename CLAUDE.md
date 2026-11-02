@@ -16,7 +16,10 @@ maintained fork of DCO Soldier FSM as the soldier brain. Public from the start.
 4. External source folders are read-only. Do not modify them.
 5. **No publishing.** Never create a GitHub remote, push or publish without asking.
 6. Small commits, one logical change each, clear messages.
-7. If a task does not match what you find, stop and ask rather than guess.
+7. **One mod only.** Only one mod is ever built from this repo: OPORD. Legacy code (the ARTIC AI v0.3.30.2 source on
+   the branch `legacy/artic-ai-v0.3`) is ported into OPORD's addons under OPORD names (see "Port map" in
+   `docs/PLAN.md`). It is never added as its own addon, never merged into `main`, and never loaded alongside OPORD.
+8. If a task does not match what you find, stop and ask rather than guess.
 
 ## Layer model (bottom to top)
 Soldier → Section → Platoon → Defence and engineering → Commander → Vehicles (core) → Support → Information network.
