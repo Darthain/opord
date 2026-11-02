@@ -9,7 +9,7 @@
     Eden: place where the position should be, rotate it to face the threat (principal direction
     of fire), synchronise it to a unit of each group that should occupy it.
     Zeus: place it on a unit (its group), facing the threat.
-    Waits ~15 s after mission start so DCO has settled group ownership (server / "HC").
+    Waits ~15 s after mission start so DCO has settled group ownership (server / headless client).
 */
 params ["_logic", ["_units", []], ["_activated", true]];
 if (!isServer || {!_activated}) exitWith {};

@@ -8,7 +8,7 @@
     OPORD_fnc_eventBridge: subscribes to DCO's (unprefixed, local) events and re-raises them as
     prefixed OPORD events: "OPORD_dco_<name>". Also keeps simple per-group counters that the
     group layer reads (e.g. how many soldiers are pinned down right now).
-    DCO raises these on the machine running the AI (server or the "HC" headless client).
+    DCO raises these on the machine running the AI (server or the headless client).
 */
 if !(call OPORD_fnc_hasDco) exitWith {};
 {

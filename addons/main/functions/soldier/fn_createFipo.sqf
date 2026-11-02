@@ -62,6 +62,6 @@ private _set = { _fipo setVariable [_this select 0, _this select 1, true]; };
 
 if (!isNull _man) then { _fipo synchronizeObjectsAdd [_man]; };
 
-// DCO's fighting-position lists live on the DCO host (server, or the "HC" headless client).
+// DCO's fighting-position lists live on the DCO host (server, or the headless client).
 ["OPORD_registerFipo", [_fipo]] call CBA_fnc_globalEvent;
 _fipo
