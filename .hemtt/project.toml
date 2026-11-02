@@ -1,0 +1,14 @@
+name = "OPORD"
+prefix = "opord"
+mainprefix = "z"
+author = "OPORD contributors"
+
+[files]
+include = [
+    "mod.cpp",
+    "LICENSE",
+    "CREDITS.md",
+]
+
+[version]
+git_hash = 0

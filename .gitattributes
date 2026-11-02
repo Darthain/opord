@@ -1,0 +1,20 @@
+* text=auto
+
+*.sqf text eol=lf
+*.sqm text eol=lf
+*.fsm text eol=lf
+*.hpp text eol=lf
+*.h text eol=lf
+*.cpp text eol=lf
+*.inc text eol=lf
+*.ext text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+LICENSE text eol=lf
+
+*.paa binary
+*.jpg binary
+*.png binary
+*.pbo binary

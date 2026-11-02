@@ -1,0 +1,13 @@
+.hemttout/
+releases/
+keys/*.biprivatekey
+*.biprivatekey
+*.pbo
+*.bisign
+.hemttprivatekey
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
