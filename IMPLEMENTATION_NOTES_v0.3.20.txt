@@ -1,0 +1,55 @@
+ARTIC AI v0.3.20-alpha - subordinate movement authority patch
+
+Purpose
+-------
+The v0.3.19 radar benchmark proved the platoon COA, virtual guides and section
+commanders were still healthy while the visible body of each section diverged. This
+build moves movement ownership down to every local fit infantryman so subordinate
+vanilla FSM/follow behaviour cannot compete with ARTIC slot destinations.
+
+Authority boundary
+------------------
+ARTIC owns:
+- strategic/tactical decision state
+- platoon COA and section routes
+- section/fireteam guides
+- formation slots
+- survival reactions
+- infantry FSM / movement destination / stop-go decision
+
+Arma retains:
+- MOVE
+- PATH
+- navmesh/pathfinding
+- obstacle avoidance
+- locomotion/animation
+
+Strategic commander
+-------------------
+EAST_CMD no longer reissues an unchanged objective on a 120 second timer. The same
+strategic objective is re-applied only if the objective changes or the ARTIC group set
+under that commander changes.
+
+Subordinate watchdog
+--------------------
+Every fit local infantryman is checked after individual execution. A large difference
+between ARTIC's slot target and expectedDestination emits UNITCTRL CONFLICT and ARTIC
+immediately reissues its destination. Physical no-progress emits UNITCTRL STALL.
+
+Key RPT lines
+-------------
+MOVEAUTH owner=... guideVel=... units=... conflicts=... stalls=... wp=... maxDelta=... FSM=true reposition=true
+UNITCTRL CONFLICT unit=... role=... task=... engine=... ARTIC=... delta=...
+UNITCTRL STALL unit=... role=... noProgress=... target=...
+CONTROL CONFLICT: removed N unexpected group waypoint(s) ...
+GUIDE LEASH ... phase=REPOSITION bodyLag=...
+
+Expected benchmark behaviour
+----------------------------
+- No recurring EAST_CMD "Assigned ATTACK" line for the unchanged OBJ_1 after 120 s.
+- REPOSITION_FOR_ATTACK remains FILE/COLUMN.
+- bodyLag=0 during reposition should keep the guide in NORMAL pace even if lateral
+  shape error is temporarily high.
+- Section members should not peel directly toward the Eden objective.
+- If they do, UNITCTRL CONFLICT should name the exact soldier and show engine vs ARTIC
+  destinations before ARTIC reasserts the slot.

@@ -1,0 +1,40 @@
+ARTIC AI v0.3.19-alpha - movement ownership patch
+
+Purpose
+-------
+This build leaves the v0.3.18 dynamic COA planner intact and concentrates on the
+execution failure observed after a successful 176 -> 116 degree replanning event.
+All three sections entered SECTION_COHESION HALT while REPOSITION_FOR_ATTACK was
+still active, causing each commander to settle beside a stopped virtual guide while
+other members continued toward outstanding slot targets.
+
+Movement boundary
+-----------------
+ARTIC owns: command intent, platoon COA, section route, guide, formation slot, speed
+intent and stop/go decisions.
+Arma owns: PATH/MOVE local navigation, collision avoidance and animation.
+Group-level waypoints are not used while ARTIC owns an infantry group and are removed
+if they appear.
+
+Key benchmark lines
+-------------------
+GUIDE LEASH SLOW/CRAWL/NORMAL ...
+CMDCTRL owner=... cmd=... guideVel=... leash=... target=... wp=0 ...
+CMD STALL RECOVERY ...
+CMDCTRL CONTROL CONFLICT ...
+CONTROL CONFLICT: removed N unexpected group waypoint(s) ...
+
+Expected v0.3.19 behaviour
+--------------------------
+- During a large COA shift the platoon reports REPOSITION_FOR_ATTACK FILE.
+- No GUIDE HALT reason=SECTION_COHESION should occur.
+- A stretched section should report GUIDE LEASH SLOW or CRAWL and continue moving.
+- Section commanders should continue with the moving guide; if one physically stops
+  >6 seconds, CMD STALL RECOVERY should reassert the current ARTIC target.
+- If an Eden/Zeus/other group waypoint appears, it should be logged and removed.
+
+FSM diagnostic
+--------------
+ARTIC_takeLeaderFSMControl defaults false. If CMDCTRL proves the engine FSM is still
+overwriting the commander's destination after waypoints and sticky-stop recovery are
+fixed, set it true for an A/B benchmark. PATH and MOVE remain enabled.

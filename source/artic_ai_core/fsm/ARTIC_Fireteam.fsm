@@ -1,0 +1,988 @@
+/*%FSM<COMPILE "scriptedFSM.cfg, ARTIC Fireteam FSM">*/
+
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-45.000000,-25.000000,45.000000,25.000000,0.000000,"Init"};
+item1[] = {"Idle",2,250,205.000000,-25.000000,295.000000,25.000000,0.000000,"Idle"};
+item2[] = {"ReceiveTask",2,250,455.000000,-85.000000,545.000000,-35.000000,0.000000,"ReceiveTask"};
+item3[] = {"Assess",2,250,705.000000,-25.000000,795.000000,25.000000,0.000000,"Assess"};
+item4[] = {"PlanLocalMove",2,250,955.000000,-385.000000,1045.000000,-335.000000,0.000000,"PlanLocalMove"};
+item5[] = {"Move",2,250,1205.000000,-205.000000,1295.000000,-155.000000,0.000000,"Move"};
+item6[] = {"BoundMove",2,250,955.000000,-265.000000,1045.000000,-215.000000,0.000000,"BoundMove"};
+item7[] = {"BoundSet",2,250,1205.000000,-85.000000,1295.000000,-35.000000,0.000000,"BoundSet"};
+item8[] = {"Deploy",2,250,955.000000,-145.000000,1045.000000,-95.000000,0.000000,"Deploy"};
+item9[] = {"AssaultPrep",2,250,955.000000,-25.000000,1045.000000,25.000000,0.000000,"AssaultPrep"};
+item10[] = {"Assault",2,250,1205.000000,35.000000,1295.000000,85.000000,0.000000,"Assault"};
+item11[] = {"BreakContact",2,250,955.000000,95.000000,1045.000000,145.000000,0.000000,"BreakContact"};
+item12[] = {"Reorganise",2,250,955.000000,215.000000,1045.000000,265.000000,0.000000,"Reorganise"};
+item13[] = {"Consolidate",2,250,1455.000000,-25.000000,1545.000000,25.000000,0.000000,"Consolidate"};
+item14[] = {"Ready",2,250,1205.000000,155.000000,1295.000000,205.000000,0.000000,"Ready"};
+item15[] = {"Failed",2,250,955.000000,335.000000,1045.000000,385.000000,0.000000,"Failed"};
+item16[] = {"End",1,250,455.000000,35.000000,545.000000,85.000000,0.000000,"End"};
+item17[] = {"Idle",4,218,80.000000,-25.000000,170.000000,25.000000,0.000000,"Idle"};
+item18[] = {"Gone",4,218,330.000000,-7.000000,420.000000,43.000000,0.000000,"Gone"};
+item19[] = {"Task",4,218,330.000000,-43.000000,420.000000,7.000000,0.000000,"Task"};
+item20[] = {"Assess",4,218,580.000000,-55.000000,670.000000,-5.000000,0.000000,"Assess"};
+item21[] = {"Ineffective",4,218,830.000000,71.000000,920.000000,121.000000,0.000000,"Ineffective"};
+item22[] = {"Withdraw",4,218,830.000000,-25.000000,920.000000,25.000000,0.000000,"Withdraw"};
+item23[] = {"Reorg",4,218,830.000000,59.000000,920.000000,109.000000,0.000000,"Reorg"};
+item24[] = {"Assault",4,218,830.000000,-37.000000,920.000000,13.000000,0.000000,"Assault"};
+item25[] = {"Bound",4,218,830.000000,-133.000000,920.000000,-83.000000,0.000000,"Bound"};
+item26[] = {"Deploy",4,218,830.000000,-49.000000,920.000000,1.000000,0.000000,"Deploy"};
+item27[] = {"Move",4,218,830.000000,-145.000000,920.000000,-95.000000,0.000000,"Move"};
+item28[] = {"Fail",4,218,830.000000,239.000000,920.000000,289.000000,0.000000,"Fail"};
+item29[] = {"Move",4,218,1080.000000,-295.000000,1170.000000,-245.000000,0.000000,"Move"};
+item30[] = {"Gone",4,218,830.000000,-145.000000,920.000000,-95.000000,0.000000,"Gone"};
+item31[] = {"Changed",4,218,830.000000,-181.000000,920.000000,-131.000000,0.000000,"Changed"};
+item32[] = {"Abort",4,218,1080.000000,-67.000000,1170.000000,-17.000000,0.000000,"Abort"};
+item33[] = {"Deadline",4,218,1080.000000,77.000000,1170.000000,127.000000,0.000000,"Deadline"};
+item34[] = {"Ineffective",4,218,1080.000000,41.000000,1170.000000,91.000000,0.000000,"Ineffective"};
+item35[] = {"Arrived",4,218,1205.000000,35.000000,1295.000000,85.000000,0.000000,"Arrived"};
+item36[] = {"Gone",4,218,705.000000,-175.000000,795.000000,-125.000000,0.000000,"Gone"};
+item37[] = {"Changed",4,218,705.000000,-211.000000,795.000000,-161.000000,0.000000,"Changed"};
+item38[] = {"Abort",4,218,955.000000,-97.000000,1045.000000,-47.000000,0.000000,"Abort"};
+item39[] = {"Deadline",4,218,955.000000,47.000000,1045.000000,97.000000,0.000000,"Deadline"};
+item40[] = {"Ineffective",4,218,955.000000,11.000000,1045.000000,61.000000,0.000000,"Ineffective"};
+item41[] = {"Arrived",4,218,1080.000000,-115.000000,1170.000000,-65.000000,0.000000,"Arrived"};
+item42[] = {"Changed",4,218,830.000000,-97.000000,920.000000,-47.000000,0.000000,"Changed"};
+item43[] = {"Release",4,218,1080.000000,-163.000000,1170.000000,-113.000000,0.000000,"Release"};
+item44[] = {"Gone",4,218,705.000000,-115.000000,795.000000,-65.000000,0.000000,"Gone"};
+item45[] = {"Changed",4,218,705.000000,-151.000000,795.000000,-101.000000,0.000000,"Changed"};
+item46[] = {"Abort",4,218,955.000000,-37.000000,1045.000000,13.000000,0.000000,"Abort"};
+item47[] = {"Deadline",4,218,955.000000,107.000000,1045.000000,157.000000,0.000000,"Deadline"};
+item48[] = {"Ineffective",4,218,955.000000,71.000000,1045.000000,121.000000,0.000000,"Ineffective"};
+item49[] = {"Arrived",4,218,1080.000000,65.000000,1170.000000,115.000000,0.000000,"Arrived"};
+item50[] = {"Changed",4,218,705.000000,-67.000000,795.000000,-17.000000,0.000000,"Changed"};
+item51[] = {"Go",4,218,1080.000000,17.000000,1170.000000,67.000000,0.000000,"Go"};
+item52[] = {"Gone",4,218,830.000000,-25.000000,920.000000,25.000000,0.000000,"Gone"};
+item53[] = {"Changed",4,218,830.000000,-61.000000,920.000000,-11.000000,0.000000,"Changed"};
+item54[] = {"Abort",4,218,1080.000000,53.000000,1170.000000,103.000000,0.000000,"Abort"};
+item55[] = {"Deadline",4,218,1080.000000,197.000000,1170.000000,247.000000,0.000000,"Deadline"};
+item56[] = {"Ineffective",4,218,1080.000000,161.000000,1170.000000,211.000000,0.000000,"Ineffective"};
+item57[] = {"Arrived",4,218,1330.000000,65.000000,1420.000000,115.000000,0.000000,"Arrived"};
+item58[] = {"Gone",4,218,705.000000,5.000000,795.000000,55.000000,0.000000,"Gone"};
+item59[] = {"Changed",4,218,705.000000,-31.000000,795.000000,19.000000,0.000000,"Changed"};
+item60[] = {"Abort",4,218,955.000000,83.000000,1045.000000,133.000000,0.000000,"Abort"};
+item61[] = {"Deadline",4,218,955.000000,227.000000,1045.000000,277.000000,0.000000,"Deadline"};
+item62[] = {"Ineffective",4,218,955.000000,191.000000,1045.000000,241.000000,0.000000,"Ineffective"};
+item63[] = {"Arrived",4,218,1080.000000,185.000000,1170.000000,235.000000,0.000000,"Arrived"};
+item64[] = {"Changed",4,218,705.000000,53.000000,795.000000,103.000000,0.000000,"Changed"};
+item65[] = {"Recovered",4,218,830.000000,107.000000,920.000000,157.000000,0.000000,"Recovered"};
+item66[] = {"Ready",4,218,1330.000000,65.000000,1420.000000,115.000000,0.000000,"Ready"};
+item67[] = {"Changed",4,218,830.000000,23.000000,920.000000,73.000000,0.000000,"Changed"};
+item68[] = {"NoTask",4,218,705.000000,77.000000,795.000000,127.000000,0.000000,"NoTask"};
+item69[] = {"Changed",4,218,705.000000,125.000000,795.000000,175.000000,0.000000,"Changed"};
+version=1;
+class LayoutItems
+{
+};
+link0[] = {0,17};
+link1[] = {17,1};
+link2[] = {1,18};
+link3[] = {18,16};
+link4[] = {1,19};
+link5[] = {19,2};
+link6[] = {2,20};
+link7[] = {20,3};
+link8[] = {3,21};
+link9[] = {21,15};
+link10[] = {3,22};
+link11[] = {22,11};
+link12[] = {3,23};
+link13[] = {23,12};
+link14[] = {3,24};
+link15[] = {24,9};
+link16[] = {3,25};
+link17[] = {25,6};
+link18[] = {3,26};
+link19[] = {26,8};
+link20[] = {3,27};
+link21[] = {27,4};
+link22[] = {3,28};
+link23[] = {28,15};
+link24[] = {4,29};
+link25[] = {29,5};
+link26[] = {5,30};
+link27[] = {30,16};
+link28[] = {5,31};
+link29[] = {31,2};
+link30[] = {5,32};
+link31[] = {32,11};
+link32[] = {5,33};
+link33[] = {33,15};
+link34[] = {5,34};
+link35[] = {34,12};
+link36[] = {5,35};
+link37[] = {35,14};
+link38[] = {6,36};
+link39[] = {36,16};
+link40[] = {6,37};
+link41[] = {37,2};
+link42[] = {6,38};
+link43[] = {38,11};
+link44[] = {6,39};
+link45[] = {39,15};
+link46[] = {6,40};
+link47[] = {40,12};
+link48[] = {6,41};
+link49[] = {41,7};
+link50[] = {7,42};
+link51[] = {42,2};
+link52[] = {7,43};
+link53[] = {43,6};
+link54[] = {8,44};
+link55[] = {44,16};
+link56[] = {8,45};
+link57[] = {45,2};
+link58[] = {8,46};
+link59[] = {46,11};
+link60[] = {8,47};
+link61[] = {47,15};
+link62[] = {8,48};
+link63[] = {48,12};
+link64[] = {8,49};
+link65[] = {49,14};
+link66[] = {9,50};
+link67[] = {50,2};
+link68[] = {9,51};
+link69[] = {51,10};
+link70[] = {10,52};
+link71[] = {52,16};
+link72[] = {10,53};
+link73[] = {53,2};
+link74[] = {10,54};
+link75[] = {54,11};
+link76[] = {10,55};
+link77[] = {55,15};
+link78[] = {10,56};
+link79[] = {56,12};
+link80[] = {10,57};
+link81[] = {57,13};
+link82[] = {11,58};
+link83[] = {58,16};
+link84[] = {11,59};
+link85[] = {59,2};
+link86[] = {11,60};
+link87[] = {60,11};
+link88[] = {11,61};
+link89[] = {61,15};
+link90[] = {11,62};
+link91[] = {62,12};
+link92[] = {11,63};
+link93[] = {63,14};
+link94[] = {12,64};
+link95[] = {64,2};
+link96[] = {12,65};
+link97[] = {65,3};
+link98[] = {13,66};
+link99[] = {66,14};
+link100[] = {14,67};
+link101[] = {67,2};
+link102[] = {14,68};
+link103[] = {68,1};
+link104[] = {15,69};
+link105[] = {69,2};
+globals[] = {0.000000,0,0,0,0,640,480,1,80,6316128,1,-250.000000,1750.000000,610.000000,-610.000000,1280,900,1};
+window[] = {2,-1,-1,-1,-1,950,244,1867,52,3,869};
+*//*%FSM</HEAD>*/
+
+class FSM
+{
+    fsmName = "ARTIC Fireteam FSM";
+    class States
+    {
+        /*%FSM<STATE "Init">*/
+        class Init
+        {
+            name = "Init";
+            itemno = 0;
+            init = /*%FSM<STATEINIT""">*/"_this params [[""_group"",grpNull,[grpNull]],[""_teamId"",""A"",[""""]]]; _taskRevSeen = -1; [_group,_teamId,""INIT""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Idle">*/
+                class Idle
+                {
+                    itemno = 17;
+                    priority = 1.000000;
+                    to = "Idle";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Idle">*/
+        class Idle
+        {
+            name = "Idle";
+            itemno = 1;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""IDLE""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 18;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""GROUP_GONE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Task">*/
+                class Task
+                {
+                    itemno = 19;
+                    priority = 1.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""HAS_TASK"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "ReceiveTask">*/
+        class ReceiveTask
+        {
+            name = "ReceiveTask";
+            itemno = 2;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""RECEIVE_TASK""] call ARTIC_fnc_fireteamFSMEnterState; _taskRevSeen = _group getVariable [format [""ARTIC_fireteamTaskRev_%1"",_teamId],0];"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Assess">*/
+                class Assess
+                {
+                    itemno = 20;
+                    priority = 1.000000;
+                    to = "Assess";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Assess">*/
+        class Assess
+        {
+            name = "Assess";
+            itemno = 3;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""ASSESS""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Ineffective">*/
+                class Ineffective
+                {
+                    itemno = 21;
+                    priority = 10.000000;
+                    to = "Failed";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TEAM_INEFFECTIVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Withdraw">*/
+                class Withdraw
+                {
+                    itemno = 22;
+                    priority = 8.000000;
+                    to = "BreakContact";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TYPE_WITHDRAW"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Reorg">*/
+                class Reorg
+                {
+                    itemno = 23;
+                    priority = 8.000000;
+                    to = "Reorganise";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TYPE_REORGANISE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Assault">*/
+                class Assault
+                {
+                    itemno = 24;
+                    priority = 7.000000;
+                    to = "AssaultPrep";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TYPE_ASSAULT"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Bound">*/
+                class Bound
+                {
+                    itemno = 25;
+                    priority = 6.000000;
+                    to = "BoundMove";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TYPE_BOUND"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Deploy">*/
+                class Deploy
+                {
+                    itemno = 26;
+                    priority = 5.000000;
+                    to = "Deploy";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TYPE_DEPLOY"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Move">*/
+                class Move
+                {
+                    itemno = 27;
+                    priority = 4.000000;
+                    to = "PlanLocalMove";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TYPE_MOVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 28;
+                    priority = 1.000000;
+                    to = "Failed";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "PlanLocalMove">*/
+        class PlanLocalMove
+        {
+            name = "PlanLocalMove";
+            itemno = 4;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""PLAN_LOCAL_MOVE""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Move">*/
+                class Move
+                {
+                    itemno = 29;
+                    priority = 1.000000;
+                    to = "Move";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Move">*/
+        class Move
+        {
+            name = "Move";
+            itemno = 5;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""MOVE""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 30;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""GROUP_GONE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 31;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Abort">*/
+                class Abort
+                {
+                    itemno = 32;
+                    priority = 8.000000;
+                    to = "BreakContact";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""ABORT"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Deadline">*/
+                class Deadline
+                {
+                    itemno = 33;
+                    priority = 7.000000;
+                    to = "Failed";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""DEADLINE_EXPIRED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ineffective">*/
+                class Ineffective
+                {
+                    itemno = 34;
+                    priority = 6.000000;
+                    to = "Reorganise";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TEAM_INEFFECTIVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Arrived">*/
+                class Arrived
+                {
+                    itemno = 35;
+                    priority = 3.000000;
+                    to = "Ready";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""AT_DESTINATION"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "BoundMove">*/
+        class BoundMove
+        {
+            name = "BoundMove";
+            itemno = 6;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""BOUND_MOVE""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 36;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""GROUP_GONE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 37;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Abort">*/
+                class Abort
+                {
+                    itemno = 38;
+                    priority = 8.000000;
+                    to = "BreakContact";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""ABORT"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Deadline">*/
+                class Deadline
+                {
+                    itemno = 39;
+                    priority = 7.000000;
+                    to = "Failed";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""DEADLINE_EXPIRED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ineffective">*/
+                class Ineffective
+                {
+                    itemno = 40;
+                    priority = 6.000000;
+                    to = "Reorganise";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TEAM_INEFFECTIVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Arrived">*/
+                class Arrived
+                {
+                    itemno = 41;
+                    priority = 3.000000;
+                    to = "BoundSet";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""AT_DESTINATION"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "BoundSet">*/
+        class BoundSet
+        {
+            name = "BoundSet";
+            itemno = 7;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""BOUND_SET""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 42;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Release">*/
+                class Release
+                {
+                    itemno = 43;
+                    priority = 4.000000;
+                    to = "BoundMove";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""SYNC_RELEASED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Deploy">*/
+        class Deploy
+        {
+            name = "Deploy";
+            itemno = 8;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""DEPLOY""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 44;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""GROUP_GONE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 45;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Abort">*/
+                class Abort
+                {
+                    itemno = 46;
+                    priority = 8.000000;
+                    to = "BreakContact";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""ABORT"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Deadline">*/
+                class Deadline
+                {
+                    itemno = 47;
+                    priority = 7.000000;
+                    to = "Failed";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""DEADLINE_EXPIRED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ineffective">*/
+                class Ineffective
+                {
+                    itemno = 48;
+                    priority = 6.000000;
+                    to = "Reorganise";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TEAM_INEFFECTIVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Arrived">*/
+                class Arrived
+                {
+                    itemno = 49;
+                    priority = 3.000000;
+                    to = "Ready";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""AT_DESTINATION"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "AssaultPrep">*/
+        class AssaultPrep
+        {
+            name = "AssaultPrep";
+            itemno = 9;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""ASSAULT_PREP""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 50;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Go">*/
+                class Go
+                {
+                    itemno = 51;
+                    priority = 4.000000;
+                    to = "Assault";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""SYNC_RELEASED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Assault">*/
+        class Assault
+        {
+            name = "Assault";
+            itemno = 10;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""ASSAULT""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 52;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""GROUP_GONE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 53;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Abort">*/
+                class Abort
+                {
+                    itemno = 54;
+                    priority = 8.000000;
+                    to = "BreakContact";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""ABORT"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Deadline">*/
+                class Deadline
+                {
+                    itemno = 55;
+                    priority = 7.000000;
+                    to = "Failed";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""DEADLINE_EXPIRED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ineffective">*/
+                class Ineffective
+                {
+                    itemno = 56;
+                    priority = 6.000000;
+                    to = "Reorganise";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TEAM_INEFFECTIVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Arrived">*/
+                class Arrived
+                {
+                    itemno = 57;
+                    priority = 3.000000;
+                    to = "Consolidate";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""AT_DESTINATION"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "BreakContact">*/
+        class BreakContact
+        {
+            name = "BreakContact";
+            itemno = 11;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""BREAK_CONTACT""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 58;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""GROUP_GONE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 59;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Abort">*/
+                class Abort
+                {
+                    itemno = 60;
+                    priority = 8.000000;
+                    to = "BreakContact";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""ABORT"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Deadline">*/
+                class Deadline
+                {
+                    itemno = 61;
+                    priority = 7.000000;
+                    to = "Failed";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""DEADLINE_EXPIRED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ineffective">*/
+                class Ineffective
+                {
+                    itemno = 62;
+                    priority = 6.000000;
+                    to = "Reorganise";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TEAM_INEFFECTIVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Arrived">*/
+                class Arrived
+                {
+                    itemno = 63;
+                    priority = 3.000000;
+                    to = "Ready";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""AT_DESTINATION"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Reorganise">*/
+        class Reorganise
+        {
+            name = "Reorganise";
+            itemno = 12;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""REORGANISE""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 64;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Recovered">*/
+                class Recovered
+                {
+                    itemno = 65;
+                    priority = 2.000000;
+                    to = "Assess";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"!([_group,_teamId,""TEAM_INEFFECTIVE"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition)"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Consolidate">*/
+        class Consolidate
+        {
+            name = "Consolidate";
+            itemno = 13;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""CONSOLIDATE""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Ready">*/
+                class Ready
+                {
+                    itemno = 66;
+                    priority = 1.000000;
+                    to = "Ready";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Ready">*/
+        class Ready
+        {
+            name = "Ready";
+            itemno = 14;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""READY""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 67;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "NoTask">*/
+                class NoTask
+                {
+                    itemno = 68;
+                    priority = 3.000000;
+                    to = "Idle";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""NO_TASK"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Failed">*/
+        class Failed
+        {
+            name = "Failed";
+            itemno = 15;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""FAILED""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 69;
+                    priority = 9.000000;
+                    to = "ReceiveTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,_teamId,""TASK_CHANGED"",_taskRevSeen] call ARTIC_fnc_fireteamFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "End">*/
+        class End
+        {
+            name = "End";
+            itemno = 16;
+            init = /*%FSM<STATEINIT""">*/"[_group,_teamId,""END""] call ARTIC_fnc_fireteamFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+            };
+        };
+        /*%FSM</STATE>*/
+    };
+    initState = "Init";
+    finalStates[] =
+    {
+        "End",
+    };
+};
+/*%FSM</COMPILE>*/

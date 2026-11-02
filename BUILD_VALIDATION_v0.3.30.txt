@@ -1,0 +1,33 @@
+ARTIC AI v0.3.30-alpha — build validation
+
+Validated in build environment:
+- Version strings: 0.3.30-alpha in CfgPatches, ARTIC_VERSION (fn_preInit) and both mod.cpp files.
+- CfgFunctions: 150 registered functions, every one present on disk; every ARTIC_fnc_* reference in the
+  source tree resolves to a registered function (7 new: isPlayStale, executeBlockingAction, buildFireLine,
+  assessSectionContact, findWithdrawalLanes, classifyPlanFailure, recordPlatoonFailure).
+- SQF-VM 2.0.0 (Linux, build ed9f5f5) --parse-only over all 152 .sqf files: 0 errors.
+  Control check: an error deliberately injected into fn_executeBlockingAction.sqf is reported.
+- SQF-VM execution: fn_classifyPlanFailure returns TIMING/CONTACT/TACTICAL as specified.
+- SQF-VM execution: fn_selectAttackScheme, 10 cases (hashmap calls shimmed to pair lists because SQF-VM
+  does not implement getOrDefault; decision logic unmodified):
+    initial SBF valid              -> SUPPORT_MANOEUVRE (SBF_50_4PTS)
+    initial no SBF                 -> DOUBLE_ENVELOPMENT (NO_CREDIBLE_SBF_TWO_SAFE_AXES)
+    contact fix, no SBF            -> SUPPORT_MANOEUVRE (CONTACT_FIX_IN_PLACE)
+    contact fix, no flank route    -> HOLD (NO_SAFE_TACTICAL_APPROACH)
+    timing retry DOUBLE            -> DOUBLE_ENVELOPMENT (RETRY_AFTER_TIMING_BLOCK_NOT_READY)
+    timing, retry budget used      -> SINGLE_ENVELOPMENT (REASSESS_DOUBLE_FAILURE_TO_SINGLE_...)
+    timing retry infeasible        -> SINGLE_ENVELOPMENT (REASSESS_DOUBLE_FAILURE_TO_SINGLE_...)
+    tactical FIX failure           -> DOUBLE_ENVELOPMENT (REASSESS_SUPPORT_FAILURE_FIX_NO_LOS)
+    contact beats timing retry     -> SUPPORT_MANOEUVRE (CONTACT_FIX_IN_PLACE)
+    no assault authority + contact -> HOLD (NO_ASSAULT_AUTHORITY)
+- Lifecycle scan: in fn_executePlatoonManoeuvre / fn_executeFixingAction / fn_executeBlockingAction every
+  indented exitWith is inside a waitUntil condition or helper function; all script exits are top-level.
+  Other plays scanned: the only nested exitWith (fn_executeFightingWithdrawal) leaves a while-loop as intended.
+
+Not available in this environment:
+- Arma 3 runtime / CBA, HEMTT or Addon Builder packing (the @ARTIC_AI/addons PBO must be built as before).
+- SQF-VM cannot execute hashmap code, groups or AI commands, so plan creation, READY_CHECK, plays and the
+  CBA state machine are only structurally validated.
+
+Therefore the authoritative validation remains the Arma RPT from the Air Station benchmark
+(pass conditions at the end of PATCH_SPEC_v0.3.30.md).

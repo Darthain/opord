@@ -1,0 +1,24 @@
+ARTIC AI v0.3.30.1-alpha hardening build validation
+===================================================
+
+Validation performed in build environment:
+- Structural delimiter scan over SQF/CPP/HPP/FSM source: PASS (163 files scanned).
+- New CfgFunctions registrations present: PASS.
+- Direct ARTIC_sectionTaskState writes constrained to plan creation + central lifecycle setter: PASS.
+- planId/taskId identity validation added to READY/FAILED/completion/stale cleanup: PASS.
+- Section play activity checks actual script handle as well as currentPlan: PASS.
+- H-hour consumption latch is planId/taskId scoped: PASS.
+- Plan-wide child abort and settled-handle gate added before replacement plan: PASS.
+- Assist suppression uses tracked play ownership and stale checking: PASS.
+- Version strings updated to 0.3.30.1-alpha: PASS.
+
+Limitations:
+- No Arma 3 runtime or SQF compiler is available in this build environment.
+- Runtime locality/CBA scheduling behaviour must be validated in the benchmark mission.
+- The Arma RPT remains authoritative for runtime validation.
+
+Deliberately deferred:
+- Full Section CBA FSM cutover.
+- Objective-secured/consolidation redesign.
+- TARGET/AUTOTARGET state authority matrix.
+- Tactical navigation cost-field / short-gate rewrite.

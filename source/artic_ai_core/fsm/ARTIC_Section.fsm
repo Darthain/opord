@@ -1,0 +1,740 @@
+/*%FSM<COMPILE "scriptedFSM.cfg, ARTIC Section FSM">*/
+
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-45.000000,-25.000000,45.000000,25.000000,0.000000,"Init"};
+item1[] = {"AwaitTask",2,250,205.000000,-25.000000,295.000000,25.000000,0.000000,"AwaitTask"};
+item2[] = {"AssessSection",2,250,455.000000,-85.000000,545.000000,-35.000000,0.000000,"AssessSection"};
+item3[] = {"Move",2,250,705.000000,-445.000000,795.000000,-395.000000,0.000000,"Move"};
+item4[] = {"Fix",2,250,705.000000,-325.000000,795.000000,-275.000000,0.000000,"Fix"};
+item5[] = {"Manoeuvre",2,250,705.000000,-205.000000,795.000000,-155.000000,0.000000,"Manoeuvre"};
+item6[] = {"Block",2,250,705.000000,-85.000000,795.000000,-35.000000,0.000000,"Block"};
+item7[] = {"Reserve",2,250,705.000000,35.000000,795.000000,85.000000,0.000000,"Reserve"};
+item8[] = {"Hold",2,250,705.000000,155.000000,795.000000,205.000000,0.000000,"Hold"};
+item9[] = {"Withdraw",2,250,705.000000,275.000000,795.000000,325.000000,0.000000,"Withdraw"};
+item10[] = {"ReportReady",2,250,955.000000,-25.000000,1045.000000,25.000000,0.000000,"ReportReady"};
+item11[] = {"ReportFailure",2,250,705.000000,395.000000,795.000000,445.000000,0.000000,"ReportFailure"};
+item12[] = {"End",1,250,455.000000,35.000000,545.000000,85.000000,0.000000,"End"};
+item13[] = {"Await",4,218,80.000000,-25.000000,170.000000,25.000000,0.000000,"Await"};
+item14[] = {"Gone",4,218,330.000000,-7.000000,420.000000,43.000000,0.000000,"Gone"};
+item15[] = {"Task",4,218,330.000000,-43.000000,420.000000,7.000000,0.000000,"Task"};
+item16[] = {"Fail",4,218,580.000000,71.000000,670.000000,121.000000,0.000000,"Fail"};
+item17[] = {"Fix",4,218,580.000000,-265.000000,670.000000,-215.000000,0.000000,"Fix"};
+item18[] = {"Man",4,218,580.000000,-181.000000,670.000000,-131.000000,0.000000,"Man"};
+item19[] = {"Block",4,218,580.000000,-97.000000,670.000000,-47.000000,0.000000,"Block"};
+item20[] = {"Reserve",4,218,580.000000,-13.000000,670.000000,37.000000,0.000000,"Reserve"};
+item21[] = {"Withdraw",4,218,580.000000,131.000000,670.000000,181.000000,0.000000,"Withdraw"};
+item22[] = {"Defend",4,218,580.000000,95.000000,670.000000,145.000000,0.000000,"Defend"};
+item23[] = {"Move",4,218,580.000000,-181.000000,670.000000,-131.000000,0.000000,"Move"};
+item24[] = {"Gone",4,218,580.000000,-241.000000,670.000000,-191.000000,0.000000,"Gone"};
+item25[] = {"Changed",4,218,580.000000,-277.000000,670.000000,-227.000000,0.000000,"Changed"};
+item26[] = {"Fail",4,218,705.000000,-13.000000,795.000000,37.000000,0.000000,"Fail"};
+item27[] = {"Ready",4,218,830.000000,-199.000000,920.000000,-149.000000,0.000000,"Ready"};
+item28[] = {"Gone",4,218,580.000000,-169.000000,670.000000,-119.000000,0.000000,"Gone"};
+item29[] = {"Changed",4,218,580.000000,-205.000000,670.000000,-155.000000,0.000000,"Changed"};
+item30[] = {"Fail",4,218,705.000000,59.000000,795.000000,109.000000,0.000000,"Fail"};
+item31[] = {"Gone",4,218,580.000000,-109.000000,670.000000,-59.000000,0.000000,"Gone"};
+item32[] = {"Changed",4,218,580.000000,-145.000000,670.000000,-95.000000,0.000000,"Changed"};
+item33[] = {"Fail",4,218,705.000000,119.000000,795.000000,169.000000,0.000000,"Fail"};
+item34[] = {"Gone",4,218,580.000000,-61.000000,670.000000,-11.000000,0.000000,"Gone"};
+item35[] = {"Changed",4,218,580.000000,-97.000000,670.000000,-47.000000,0.000000,"Changed"};
+item36[] = {"Fail",4,218,705.000000,167.000000,795.000000,217.000000,0.000000,"Fail"};
+item37[] = {"Ready",4,218,830.000000,-19.000000,920.000000,31.000000,0.000000,"Ready"};
+item38[] = {"Gone",4,218,580.000000,-1.000000,670.000000,49.000000,0.000000,"Gone"};
+item39[] = {"Changed",4,218,580.000000,-37.000000,670.000000,13.000000,0.000000,"Changed"};
+item40[] = {"Fail",4,218,705.000000,227.000000,795.000000,277.000000,0.000000,"Fail"};
+item41[] = {"Ready",4,218,830.000000,41.000000,920.000000,91.000000,0.000000,"Ready"};
+item42[] = {"Gone",4,218,580.000000,59.000000,670.000000,109.000000,0.000000,"Gone"};
+item43[] = {"Changed",4,218,580.000000,23.000000,670.000000,73.000000,0.000000,"Changed"};
+item44[] = {"Fail",4,218,705.000000,287.000000,795.000000,337.000000,0.000000,"Fail"};
+item45[] = {"Ready",4,218,830.000000,101.000000,920.000000,151.000000,0.000000,"Ready"};
+item46[] = {"Gone",4,218,580.000000,119.000000,670.000000,169.000000,0.000000,"Gone"};
+item47[] = {"Changed",4,218,580.000000,83.000000,670.000000,133.000000,0.000000,"Changed"};
+item48[] = {"Fail",4,218,705.000000,347.000000,795.000000,397.000000,0.000000,"Fail"};
+item49[] = {"Ready",4,218,830.000000,161.000000,920.000000,211.000000,0.000000,"Ready"};
+item50[] = {"Changed",4,218,705.000000,-55.000000,795.000000,-5.000000,0.000000,"Changed"};
+item51[] = {"Changed",4,218,580.000000,155.000000,670.000000,205.000000,0.000000,"Changed"};
+version=1;
+class LayoutItems
+{
+};
+link0[] = {0,13};
+link1[] = {13,1};
+link2[] = {1,14};
+link3[] = {14,12};
+link4[] = {1,15};
+link5[] = {15,2};
+link6[] = {2,16};
+link7[] = {16,11};
+link8[] = {2,17};
+link9[] = {17,4};
+link10[] = {2,18};
+link11[] = {18,5};
+link12[] = {2,19};
+link13[] = {19,6};
+link14[] = {2,20};
+link15[] = {20,7};
+link16[] = {2,21};
+link17[] = {21,9};
+link18[] = {2,22};
+link19[] = {22,8};
+link20[] = {2,23};
+link21[] = {23,3};
+link22[] = {3,24};
+link23[] = {24,12};
+link24[] = {3,25};
+link25[] = {25,2};
+link26[] = {3,26};
+link27[] = {26,11};
+link28[] = {3,27};
+link29[] = {27,10};
+link30[] = {4,28};
+link31[] = {28,12};
+link32[] = {4,29};
+link33[] = {29,2};
+link34[] = {4,30};
+link35[] = {30,11};
+link36[] = {5,31};
+link37[] = {31,12};
+link38[] = {5,32};
+link39[] = {32,2};
+link40[] = {5,33};
+link41[] = {33,11};
+link42[] = {6,34};
+link43[] = {34,12};
+link44[] = {6,35};
+link45[] = {35,2};
+link46[] = {6,36};
+link47[] = {36,11};
+link48[] = {6,37};
+link49[] = {37,10};
+link50[] = {7,38};
+link51[] = {38,12};
+link52[] = {7,39};
+link53[] = {39,2};
+link54[] = {7,40};
+link55[] = {40,11};
+link56[] = {7,41};
+link57[] = {41,10};
+link58[] = {8,42};
+link59[] = {42,12};
+link60[] = {8,43};
+link61[] = {43,2};
+link62[] = {8,44};
+link63[] = {44,11};
+link64[] = {8,45};
+link65[] = {45,10};
+link66[] = {9,46};
+link67[] = {46,12};
+link68[] = {9,47};
+link69[] = {47,2};
+link70[] = {9,48};
+link71[] = {48,11};
+link72[] = {9,49};
+link73[] = {49,10};
+link74[] = {10,50};
+link75[] = {50,2};
+link76[] = {11,51};
+link77[] = {51,2};
+globals[] = {0.000000,0,0,0,0,640,480,1,62,6316128,1,-250.000000,1250.000000,670.000000,-670.000000,1280,900,1};
+window[] = {2,-1,-1,-1,-1,950,244,1867,52,3,869};
+*//*%FSM</HEAD>*/
+
+class FSM
+{
+    fsmName = "ARTIC Section FSM";
+    class States
+    {
+        /*%FSM<STATE "Init">*/
+        class Init
+        {
+            name = "Init";
+            itemno = 0;
+            init = /*%FSM<STATEINIT""">*/"_this params [[""_group"",grpNull,[grpNull]]]; _seenOrderAt = -1e6; [_group,""INIT""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Await">*/
+                class Await
+                {
+                    itemno = 13;
+                    priority = 1.000000;
+                    to = "AwaitTask";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "AwaitTask">*/
+        class AwaitTask
+        {
+            name = "AwaitTask";
+            itemno = 1;
+            init = /*%FSM<STATEINIT""">*/"[_group,""AWAIT_TASK""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 14;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Task">*/
+                class Task
+                {
+                    itemno = 15;
+                    priority = 1.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""HAS_ORDER"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "AssessSection">*/
+        class AssessSection
+        {
+            name = "AssessSection";
+            itemno = 2;
+            init = /*%FSM<STATEINIT""">*/"[_group,""ASSESS_SECTION""] call ARTIC_fnc_sectionFSMEnterState; _seenOrderAt = _group getVariable [""ARTIC_orderIssuedAt"",time];"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 16;
+                    priority = 10.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fix">*/
+                class Fix
+                {
+                    itemno = 17;
+                    priority = 8.000000;
+                    to = "Fix";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""TYPE_FIX"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Man">*/
+                class Man
+                {
+                    itemno = 18;
+                    priority = 8.000000;
+                    to = "Manoeuvre";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""TYPE_MANOEUVRE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Block">*/
+                class Block
+                {
+                    itemno = 19;
+                    priority = 8.000000;
+                    to = "Block";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""TYPE_BLOCK"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Reserve">*/
+                class Reserve
+                {
+                    itemno = 20;
+                    priority = 8.000000;
+                    to = "Reserve";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""TYPE_RESERVE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Withdraw">*/
+                class Withdraw
+                {
+                    itemno = 21;
+                    priority = 8.000000;
+                    to = "Withdraw";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""TYPE_WITHDRAW"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Defend">*/
+                class Defend
+                {
+                    itemno = 22;
+                    priority = 7.000000;
+                    to = "Hold";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""TYPE_DEFEND"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Move">*/
+                class Move
+                {
+                    itemno = 23;
+                    priority = 1.000000;
+                    to = "Move";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Move">*/
+        class Move
+        {
+            name = "Move";
+            itemno = 3;
+            init = /*%FSM<STATEINIT""">*/"[_group,""MOVE""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 24;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 25;
+                    priority = 9.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 26;
+                    priority = 8.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ready">*/
+                class Ready
+                {
+                    itemno = 27;
+                    priority = 2.000000;
+                    to = "ReportReady";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""AT_POSITION"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Fix">*/
+        class Fix
+        {
+            name = "Fix";
+            itemno = 4;
+            init = /*%FSM<STATEINIT""">*/"[_group,""FIX""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 28;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 29;
+                    priority = 9.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 30;
+                    priority = 8.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Manoeuvre">*/
+        class Manoeuvre
+        {
+            name = "Manoeuvre";
+            itemno = 5;
+            init = /*%FSM<STATEINIT""">*/"[_group,""MANOEUVRE""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 31;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 32;
+                    priority = 9.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 33;
+                    priority = 8.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Block">*/
+        class Block
+        {
+            name = "Block";
+            itemno = 6;
+            init = /*%FSM<STATEINIT""">*/"[_group,""BLOCK""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 34;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 35;
+                    priority = 9.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 36;
+                    priority = 8.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ready">*/
+                class Ready
+                {
+                    itemno = 37;
+                    priority = 2.000000;
+                    to = "ReportReady";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""AT_POSITION"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Reserve">*/
+        class Reserve
+        {
+            name = "Reserve";
+            itemno = 7;
+            init = /*%FSM<STATEINIT""">*/"[_group,""RESERVE""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 38;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 39;
+                    priority = 9.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 40;
+                    priority = 8.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ready">*/
+                class Ready
+                {
+                    itemno = 41;
+                    priority = 2.000000;
+                    to = "ReportReady";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""AT_POSITION"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Hold">*/
+        class Hold
+        {
+            name = "Hold";
+            itemno = 8;
+            init = /*%FSM<STATEINIT""">*/"[_group,""HOLD""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 42;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 43;
+                    priority = 9.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 44;
+                    priority = 8.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ready">*/
+                class Ready
+                {
+                    itemno = 45;
+                    priority = 2.000000;
+                    to = "ReportReady";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""AT_POSITION"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Withdraw">*/
+        class Withdraw
+        {
+            name = "Withdraw";
+            itemno = 9;
+            init = /*%FSM<STATEINIT""">*/"[_group,""WITHDRAW""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 46;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""GROUP_GONE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 47;
+                    priority = 9.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Fail">*/
+                class Fail
+                {
+                    itemno = 48;
+                    priority = 8.000000;
+                    to = "ReportFailure";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""FAILURE"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ready">*/
+                class Ready
+                {
+                    itemno = 49;
+                    priority = 2.000000;
+                    to = "ReportReady";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""AT_POSITION"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "ReportReady">*/
+        class ReportReady
+        {
+            name = "ReportReady";
+            itemno = 10;
+            init = /*%FSM<STATEINIT""">*/"[_group,""REPORT_READY""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 50;
+                    priority = 5.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "ReportFailure">*/
+        class ReportFailure
+        {
+            name = "ReportFailure";
+            itemno = 11;
+            init = /*%FSM<STATEINIT""">*/"[_group,""REPORT_FAILURE""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Changed">*/
+                class Changed
+                {
+                    itemno = 51;
+                    priority = 5.000000;
+                    to = "AssessSection";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_group,""ORDER_CHANGED"",_seenOrderAt] call ARTIC_fnc_sectionFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "End">*/
+        class End
+        {
+            name = "End";
+            itemno = 12;
+            init = /*%FSM<STATEINIT""">*/"[_group,""END""] call ARTIC_fnc_sectionFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+            };
+        };
+        /*%FSM</STATE>*/
+    };
+    initState = "Init";
+    finalStates[] =
+    {
+        "End",
+    };
+};
+/*%FSM</COMPILE>*/

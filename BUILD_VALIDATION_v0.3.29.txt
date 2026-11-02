@@ -1,0 +1,19 @@
+ARTIC AI v0.3.29-alpha-FSM-runtime — build validation
+
+Validated in build environment:
+- Version strings: 0.3.29-alpha in addon config and both mod.cpp files.
+- New CBA platoon runtime functions registered in CfgFunctions and present on disk.
+- CfgPatches explicitly requires cba_events and cba_statemachine.
+- CBA runtime model checked against current CBA statemachine API: dynamic CODE list, LOCATION state machine, addState and addTransition signatures.
+- CBA custom event usage checked against current event API: serverEvent/localEvent/addEventHandler.
+- Four BI FSM reference diagrams remain non-empty and contain FSM Editor HEAD/COMPILE metadata.
+- SQF/CPP/FSM delimiter structural scan completed across source tree.
+- PlatoonPlan failure latches are cleared on supersession to prevent replacement-plan poisoning.
+- Immutable-plan reapplication only broadcasts group variables when values actually differ.
+- Hasty-contact cleanup cannot restore old roles over an active plan.
+
+Not available in this environment:
+- Arma 3 runtime/compiler validation.
+- SQFVM/sqflint/armake2/HEMTT runtime compilation.
+
+Therefore the authoritative next validation remains the Arma RPT from the normal Air Station benchmark.

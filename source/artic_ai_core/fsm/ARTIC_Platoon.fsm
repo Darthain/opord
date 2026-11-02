@@ -1,0 +1,432 @@
+/*%FSM<COMPILE "scriptedFSM.cfg, ARTIC Platoon FSM">*/
+
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-45.000000,-25.000000,45.000000,25.000000,0.000000,"Init"};
+item1[] = {"AwaitIntent",2,250,205.000000,-25.000000,295.000000,25.000000,0.000000,"AwaitIntent"};
+item2[] = {"AssessBattlefield",2,250,455.000000,-85.000000,545.000000,-35.000000,0.000000,"AssessBattlefield"};
+item3[] = {"SelectScheme",2,250,705.000000,-25.000000,795.000000,25.000000,0.000000,"SelectScheme"};
+item4[] = {"PlanRoutes",2,250,955.000000,-25.000000,1045.000000,25.000000,0.000000,"PlanRoutes"};
+item5[] = {"Reposition",2,250,1205.000000,-25.000000,1295.000000,25.000000,0.000000,"Reposition"};
+item6[] = {"Deploy",2,250,1455.000000,-85.000000,1545.000000,-35.000000,0.000000,"Deploy"};
+item7[] = {"ReadyCheck",2,250,1705.000000,-25.000000,1795.000000,25.000000,0.000000,"ReadyCheck"};
+item8[] = {"Execute",2,250,1955.000000,-25.000000,2045.000000,25.000000,0.000000,"Execute"};
+item9[] = {"AssessExecution",2,250,2205.000000,-85.000000,2295.000000,-35.000000,0.000000,"AssessExecution"};
+item10[] = {"Reassess",2,250,1455.000000,35.000000,1545.000000,85.000000,0.000000,"Reassess"};
+item11[] = {"Consolidate",2,250,2205.000000,35.000000,2295.000000,85.000000,0.000000,"Consolidate"};
+item12[] = {"End",1,250,455.000000,35.000000,545.000000,85.000000,0.000000,"End"};
+item13[] = {"Await",4,218,80.000000,-25.000000,170.000000,25.000000,0.000000,"Await"};
+item14[] = {"Gone",4,218,330.000000,-7.000000,420.000000,43.000000,0.000000,"Gone"};
+item15[] = {"Intent",4,218,330.000000,-43.000000,420.000000,7.000000,0.000000,"Intent"};
+item16[] = {"Scheme",4,218,580.000000,-55.000000,670.000000,-5.000000,0.000000,"Scheme"};
+item17[] = {"Routes",4,218,830.000000,-25.000000,920.000000,25.000000,0.000000,"Routes"};
+item18[] = {"Reposition",4,218,1080.000000,-25.000000,1170.000000,25.000000,0.000000,"Reposition"};
+item19[] = {"Failure",4,218,1330.000000,-7.000000,1420.000000,43.000000,0.000000,"Failure"};
+item20[] = {"Deploy",4,218,1330.000000,-43.000000,1420.000000,7.000000,0.000000,"Deploy"};
+item21[] = {"Failure",4,218,1455.000000,-37.000000,1545.000000,13.000000,0.000000,"Failure"};
+item22[] = {"Ready",4,218,1580.000000,-43.000000,1670.000000,7.000000,0.000000,"Ready"};
+item23[] = {"Failure",4,218,1580.000000,-7.000000,1670.000000,43.000000,0.000000,"Failure"};
+item24[] = {"Execute",4,218,1830.000000,-13.000000,1920.000000,37.000000,0.000000,"Execute"};
+item25[] = {"Failure",4,218,2080.000000,-67.000000,2170.000000,-17.000000,0.000000,"Failure"};
+item26[] = {"Complete",4,218,2080.000000,17.000000,2170.000000,67.000000,0.000000,"Complete"};
+item27[] = {"Reassess",4,218,1830.000000,-25.000000,1920.000000,25.000000,0.000000,"Reassess"};
+item28[] = {"Assess",4,218,955.000000,-25.000000,1045.000000,25.000000,0.000000,"Assess"};
+item29[] = {"Await",4,218,1205.000000,5.000000,1295.000000,55.000000,0.000000,"Await"};
+version=1;
+class LayoutItems
+{
+};
+link0[] = {0,13};
+link1[] = {13,1};
+link2[] = {1,14};
+link3[] = {14,12};
+link4[] = {1,15};
+link5[] = {15,2};
+link6[] = {2,16};
+link7[] = {16,3};
+link8[] = {3,17};
+link9[] = {17,4};
+link10[] = {4,18};
+link11[] = {18,5};
+link12[] = {5,19};
+link13[] = {19,10};
+link14[] = {5,20};
+link15[] = {20,6};
+link16[] = {6,21};
+link17[] = {21,10};
+link18[] = {6,22};
+link19[] = {22,7};
+link20[] = {7,23};
+link21[] = {23,10};
+link22[] = {7,24};
+link23[] = {24,8};
+link24[] = {8,25};
+link25[] = {25,9};
+link26[] = {8,26};
+link27[] = {26,11};
+link28[] = {9,27};
+link29[] = {27,10};
+link30[] = {10,28};
+link31[] = {28,2};
+link32[] = {11,29};
+link33[] = {29,1};
+globals[] = {0.000000,0,0,0,0,640,480,1,40,6316128,1,-250.000000,2500.000000,310.000000,-310.000000,1280,900,1};
+window[] = {2,-1,-1,-1,-1,950,244,1867,52,3,869};
+*//*%FSM</HEAD>*/
+
+class FSM
+{
+    fsmName = "ARTIC Platoon FSM";
+    class States
+    {
+        /*%FSM<STATE "Init">*/
+        class Init
+        {
+            name = "Init";
+            itemno = 0;
+            init = /*%FSM<STATEINIT""">*/"_this params [[""_commanderId"","""",[""""]],[""_nodeId"","""",[""""]]]; [_commanderId,_nodeId,""INIT""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Await">*/
+                class Await
+                {
+                    itemno = 13;
+                    priority = 1.000000;
+                    to = "AwaitIntent";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "AwaitIntent">*/
+        class AwaitIntent
+        {
+            name = "AwaitIntent";
+            itemno = 1;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""AWAIT_INTENT""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Gone">*/
+                class Gone
+                {
+                    itemno = 14;
+                    priority = 10.000000;
+                    to = "End";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""NODE_GONE""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Intent">*/
+                class Intent
+                {
+                    itemno = 15;
+                    priority = 1.000000;
+                    to = "AssessBattlefield";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""HAS_INTENT""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "AssessBattlefield">*/
+        class AssessBattlefield
+        {
+            name = "AssessBattlefield";
+            itemno = 2;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""ASSESS_BATTLEFIELD""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Scheme">*/
+                class Scheme
+                {
+                    itemno = 16;
+                    priority = 1.000000;
+                    to = "SelectScheme";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "SelectScheme">*/
+        class SelectScheme
+        {
+            name = "SelectScheme";
+            itemno = 3;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""SELECT_SCHEME""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Routes">*/
+                class Routes
+                {
+                    itemno = 17;
+                    priority = 1.000000;
+                    to = "PlanRoutes";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "PlanRoutes">*/
+        class PlanRoutes
+        {
+            name = "PlanRoutes";
+            itemno = 4;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""PLAN_ROUTES""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Reposition">*/
+                class Reposition
+                {
+                    itemno = 18;
+                    priority = 1.000000;
+                    to = "Reposition";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Reposition">*/
+        class Reposition
+        {
+            name = "Reposition";
+            itemno = 5;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""REPOSITION""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Failure">*/
+                class Failure
+                {
+                    itemno = 19;
+                    priority = 9.000000;
+                    to = "Reassess";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""TACTICAL_FAILURE""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Deploy">*/
+                class Deploy
+                {
+                    itemno = 20;
+                    priority = 2.000000;
+                    to = "Deploy";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""ALL_DEPLOYED""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Deploy">*/
+        class Deploy
+        {
+            name = "Deploy";
+            itemno = 6;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""DEPLOY""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Failure">*/
+                class Failure
+                {
+                    itemno = 21;
+                    priority = 9.000000;
+                    to = "Reassess";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""TACTICAL_FAILURE""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Ready">*/
+                class Ready
+                {
+                    itemno = 22;
+                    priority = 2.000000;
+                    to = "ReadyCheck";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""ALL_DEPLOYED""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "ReadyCheck">*/
+        class ReadyCheck
+        {
+            name = "ReadyCheck";
+            itemno = 7;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""READY_CHECK""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Failure">*/
+                class Failure
+                {
+                    itemno = 23;
+                    priority = 9.000000;
+                    to = "Reassess";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""TACTICAL_FAILURE""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Execute">*/
+                class Execute
+                {
+                    itemno = 24;
+                    priority = 2.000000;
+                    to = "Execute";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""EXECUTION_ARMED""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Execute">*/
+        class Execute
+        {
+            name = "Execute";
+            itemno = 8;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""EXECUTE""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Failure">*/
+                class Failure
+                {
+                    itemno = 25;
+                    priority = 9.000000;
+                    to = "AssessExecution";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""TACTICAL_FAILURE""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+                /*%FSM<LINK "Complete">*/
+                class Complete
+                {
+                    itemno = 26;
+                    priority = 8.000000;
+                    to = "Consolidate";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"[_commanderId,_nodeId,""OBJECTIVE_COMPLETE""] call ARTIC_fnc_platoonFSMCondition"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "AssessExecution">*/
+        class AssessExecution
+        {
+            name = "AssessExecution";
+            itemno = 9;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""ASSESS_EXECUTION""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Reassess">*/
+                class Reassess
+                {
+                    itemno = 27;
+                    priority = 1.000000;
+                    to = "Reassess";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Reassess">*/
+        class Reassess
+        {
+            name = "Reassess";
+            itemno = 10;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""REASSESS""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Assess">*/
+                class Assess
+                {
+                    itemno = 28;
+                    priority = 1.000000;
+                    to = "AssessBattlefield";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "Consolidate">*/
+        class Consolidate
+        {
+            name = "Consolidate";
+            itemno = 11;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""CONSOLIDATE""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+                /*%FSM<LINK "Await">*/
+                class Await
+                {
+                    itemno = 29;
+                    priority = 1.000000;
+                    to = "AwaitIntent";
+                    precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                    condition = /*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                    action = /*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                };
+                /*%FSM</LINK>*/
+            };
+        };
+        /*%FSM</STATE>*/
+        /*%FSM<STATE "End">*/
+        class End
+        {
+            name = "End";
+            itemno = 12;
+            init = /*%FSM<STATEINIT""">*/"[_commanderId,_nodeId,""END""] call ARTIC_fnc_platoonFSMEnterState;"/*%FSM</STATEINIT""">*/;
+            precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+            class Links
+            {
+            };
+        };
+        /*%FSM</STATE>*/
+    };
+    initState = "Init";
+    finalStates[] =
+    {
+        "End",
+    };
+};
+/*%FSM</COMPILE>*/

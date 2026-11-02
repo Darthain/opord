@@ -1,0 +1,43 @@
+ARTIC AI v0.3.18-alpha implementation summary
+
+Implemented from the 2026-10-01 attack benchmark:
+
+1. Section commander / cohesion stall
+- CMD/MEDIC/2IC no longer hard-stop the section guide when individually out of slot.
+- Guide halt now requires a genuine section-wide cohesion failure.
+- Platoon-owned FORMATION movement is treated as advancing by individual AI.
+- Section commanders suppress low-grade/distant danger reactions while platoon approach ownership is active; real heavy engagement, hits and exposed reloads still permit cover reactions.
+- GUIDE HALT/RESUME diagnostics added.
+
+2. Route overshoot / huge detours
+- Route progress is monitored per section.
+- Overshot control points can advance instead of forcing a return turn.
+- 15 seconds without meaningful progress triggers a local route rebuild from the live section guide position.
+- PathCalculated results that are grossly disproportionate to the tactical corridor are rejected.
+
+3. Dynamic battle planner / alternate attack axes
+- New ARTIC_fnc_generateBattleCOAs.
+- Candidate axes: current, +/-30, +/-60, +/-90, reverse.
+- Each candidate scores SBF visibility, masked approach, cover, slope, reposition cost and turn cost.
+- SBF search occurs over a zone, not one point.
+- 20% known-enemy visibility is the minimum valid SBF threshold.
+- If no valid COA exists the platoon holds and reviews; it does not wander toward an invalid candidate.
+
+4. REPOSITION_FOR_ATTACK
+- A valid alternate axis >=35 degrees from the current axis creates a deliberate platoon reposition phase.
+- Platoon reforms on the new release side before FIX / LEFT / RIGHT routes are regenerated.
+
+5. Battle-plan review
+- HOLD_FOR_FIRE_POSITION is temporary.
+- Failed geometry is reviewed after ~22 seconds.
+- Review is also triggered by new intelligence, >=25% enemy-strength change, or >55 m enemy-focus movement.
+- Valid contexts can be reviewed on meaningful battlefield movement/change.
+
+Important new RPT strings:
+- COA search base=... selected=... delta=... valid=... SBF=...
+- Battle plan review triggered: ...
+- Platoon ... REPOSITION_FOR_ATTACK ...
+- GUIDE HALT reason=SECTION_COHESION ...
+- GUIDE RESUME reason=RECOVERED ...
+- ROUTE REPLAN noProgress=...
+- Guide path rejected as pathological ...

@@ -1,0 +1,21 @@
+ARTIC AI v0.3.21-alpha
+
+ROOT CAUSE ADDRESSED
+- v0.3.20 telemetry proved mass engine ATTACK assignment to subordinates while section leaders remained correctly controlled by PLATOON_GUIDE.
+- UAS/shared-contact reveal plus vanilla group auto-attack was creating a second engagement/movement owner.
+- Multi-section offensive objectives also still carried dormant ATTACK-to-objective executable orders beneath the platoon guide.
+
+PATCH
+- CAPTURE strategic objective -> SEIZE purpose.
+- Multi-section SEIZE groups use safe PLATOON execution state until tactical release.
+- Platoon controller arms FIX/ATTACK/RESERVE only at release.
+- Vanilla group auto-attack disabled while ARTIC owns guide movement.
+- Engine ATTACK commands are scrubbed by the movement watchdog.
+- Shared/UAS intel no longer reveals contacts to vanilla groups.
+- Explicit SUPPRESS/ASSAULT tasks seed engine knowledge just-in-time.
+
+EXPECTED LOG
+MOVEAUTH ... conflicts=0 attackCmd=0 ... autoAttack=false reposition=true
+
+At release:
+Platoon <id>: tactical execution armed from strategic SEIZE
